@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Главная Страница</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Учебная Система</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="index.html">Главная <span class="sr-only">(текущая)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="login">Вход</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="schedule">Расписание</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="electronic-library">Электронная Библиотека</a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" href="profile">Личный Кабинет</a>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<main role="main" class="container mt-5">
+    <div class="jumbotron">
+        <h1>Оценки</h1>
+
+        <table class="table table-striped" th:if="${role == 'TEACHER'}">
+            <thead>
+            <tr>
+                <th>Ученик</th>
+                <th>Класс</th>
+                <th>Предмет</th>
+                <th>Оценка</th>
+                <th>Дата</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="grade : ${grades}">
+                <td th:text="${grade.student.name}"></td>
+                <td th:text="${grade.student.gruppe}"></td>
+                <td th:text="${grade.course.name}"></td>
+                <td th:text="${grade.grade}"></td>
+                <td th:text="${#temporals.format(grade.date, 'dd.MM.yyyy')}"></td>
+            </tr>
+            </tbody>
+        </table>
+        <table class="table table-striped" th:if="${role == 'PUPIL'}">
+            <thead>
+            <tr>
+                <th>Предмет</th>
+                <th>Оценка</th>
+                <th>Дата</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="grade : ${grades}">
+                <td th:text="${grade.course.name}"></td>
+                <td th:text="${grade.grade}"></td>
+                <td th:text="${#dates.format(grade.date, 'dd.MM.yyyy')}"></td>
+            </tr>
+            </tbody>
+        </table>
+        <table class="table table-striped" th:if="${role == 'PARENT'}">
+            <thead>
+            <tr>
+                <th>Ребенок</th>
+                <th>Предмет</th>
+                <th>Оценка</th>
+                <th>Дата</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="grade : ${grades}">
+                <td th:text="${grade.student.name}"></td>
+                <td th:text="${grade.course.name}"></td>
+                <td th:text="${grade.grade}"></td>
+                <td th:text="${#dates.format(grade.date, 'dd.MM.yyyy')}"></td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+</main>
+
+<footer class="footer mt-auto py-3 bg-light">
+    <div class="container">
+        <span class="text-muted">&copy; 2023 JJ</span>
+    </div>
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

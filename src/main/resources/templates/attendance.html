@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Посещаемость</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<header>
+    <!-- Шапка сайта с навигационной панелью -->
+</header>
+
+<main role="main" class="container mt-5">
+    <div class="jumbotron">
+        <h1>Посещаемость</h1>
+
+        <!-- Для учителей -->
+        <div th:if="${role == 'TEACHER'}">
+            <h2>Посещаемость Учеников</h2>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Дата</th>
+                    <th>Предмет</th>
+                    <th>Ученик</th>
+                    <th>Статус</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="attendance : ${attendances}">
+                    <td th:text="${attendance.schedule.time}"></td>
+                    <td th:text="${attendance.schedule.course.name}"></td>
+                    <td th:text="${attendance.student.name}"></td>
+                    <td th:text="${attendance.status}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Для учеников -->
+        <div th:if="${role == 'PUPIL'}">
+            <h2>Ваша Посещаемость</h2>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Дата</th>
+                    <th>Предмет</th>
+                    <th>Статус</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="attendance : ${attendances}">
+                    <td th:text="${#dates.format(attendance.date, 'dd.MM.yyyy')}"></td>
+                    <td th:text="${attendance.course.name}"></td>
+                    <td th:text="${attendance.status}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <!-- Подвал сайта -->
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
