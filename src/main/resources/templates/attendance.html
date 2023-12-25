@@ -53,7 +53,7 @@
         <h1>Посещаемость</h1>
 
         <!-- Для учителей -->
-        <div th:if="${role == 'TEACHER'}">
+        <div th:if="${role == '[ROLE_TEACHER]'}">
             <h2>Посещаемость Учеников</h2>
             <table class="table table-striped">
                 <thead>
@@ -66,7 +66,7 @@
                 </thead>
                 <tbody>
                 <tr th:each="attendance : ${attendances}">
-                    <td th:text="${attendance.schedule.time}"></td>
+                    <td th:text="${attendance.schedule.dateOrDay}"><span th:text="${attendance.schedule.time}"></span>></td>
                     <td th:text="${attendance.schedule.course.name}"></td>
                     <td th:text="${attendance.student.name}"></td>
                     <td th:text="${attendance.status}"></td>
@@ -76,7 +76,7 @@
         </div>
 
         <!-- Для учеников -->
-        <div th:if="${role == 'PUPIL'}">
+        <div th:if="${role == '[ROLE_PUPIL]'}">
             <h2>Ваша Посещаемость</h2>
             <table class="table table-striped">
                 <thead>

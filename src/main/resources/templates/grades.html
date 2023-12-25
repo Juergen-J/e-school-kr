@@ -52,7 +52,7 @@
     <div class="jumbotron">
         <h1>Оценки</h1>
 
-        <table class="table table-striped" th:if="${role == 'TEACHER'}">
+        <table class="table table-striped" th:if="${role == '[ROLE_TEACHER]'}">
             <thead>
             <tr>
                 <th>Ученик</th>
@@ -72,7 +72,7 @@
             </tr>
             </tbody>
         </table>
-        <table class="table table-striped" th:if="${role == 'PUPIL'}">
+        <table class="table table-striped" th:if="${role == '[ROLE_PUPIL]'}">
             <thead>
             <tr>
                 <th>Предмет</th>
@@ -88,7 +88,7 @@
             </tr>
             </tbody>
         </table>
-        <table class="table table-striped" th:if="${role == 'PARENT'}">
+        <table class="table table-striped" th:if="${role == '[ROLE_PARENT]'}">
             <thead>
             <tr>
                 <th>Ребенок</th>

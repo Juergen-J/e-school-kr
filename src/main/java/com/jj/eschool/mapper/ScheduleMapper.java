@@ -13,4 +13,6 @@ public interface ScheduleMapper {
     List<ScheduleDTO> mapSchedules(Iterable<Schedule> schedules);
 
     ScheduleDTO mapSchedule(Schedule schedule);
+
+    Schedule mapSchedule(ScheduleDTO scheduleDto);
 }

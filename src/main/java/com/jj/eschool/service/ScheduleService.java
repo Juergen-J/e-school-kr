@@ -21,13 +21,17 @@ public class ScheduleService {
 
     public List<ScheduleDTO> findAll() {
         var schedules = scheduleRepository.findAll();
-        var result = scheduleMapper.mapSchedules(schedules);
+        return scheduleMapper.mapSchedules(schedules);
+    }
 
-        return List.of(new ScheduleDTO(new CourseDTO(
-                2L,
-                "IT - Java Programming",
-                "I teach you, how is Java worked",
-                "I"
-        ), "Room 234A", "12.12.2023 20.00-21.00"));
+    public ScheduleDTO findById(Long id) {
+        var schedule = scheduleRepository.findById(id).orElseThrow();
+        return scheduleMapper.mapSchedule(schedule);
+    }
+
+    public void save(ScheduleDTO scheduleDTO) {
+        var toSave = scheduleMapper.mapSchedule(scheduleDTO);
+
+        scheduleRepository.save(toSave);
     }
 }

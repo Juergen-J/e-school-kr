@@ -18,12 +18,15 @@ public class Schedule {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long scheduleID;
 
-    private Long courseID;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "course_id", referencedColumnName = "course_id")
+    private Course course;
 
     private String classRoom;
 
-    private LocalDateTime startTime;
+    private String time;
 
-    private LocalDateTime endTime;
+    String dateOrDay;
+
 
 }

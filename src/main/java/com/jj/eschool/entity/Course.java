@@ -13,12 +13,15 @@ import lombok.NoArgsConstructor;
 public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long courseID;
-    private String courseName;
+    @Column(name = "course_id")
+    private Long courseId;
+
+    private String name;
+
     private String description;
 
-    @ManyToOne
-    @JoinColumn(name = "userID")
-    private User teacherID;
+    @ManyToOne(cascade = {CascadeType.MERGE})
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    private User teacher;
 
 }

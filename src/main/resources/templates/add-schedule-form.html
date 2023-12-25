@@ -48,43 +48,39 @@
     </nav>
 </header>
 
-<main role="main" class="container mt-5">
+<main role="main" class="container">
     <div class="jumbotron">
-        <h1 class="display-4">Расписание Занятий</h1>
-        <p class="lead">Просмотрите расписание занятий ниже.</p>
-        <hr class="my-4">
-
-        <!-- Таблица расписания -->
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th scope="col">День</th>
-                <th scope="col">Время</th>
-                <th scope="col">Предмет</th>
-                <th scope="col">Преподаватель</th>
-                <th scope="col">Аудитория</th>
-            </tr>
-            </thead>
-            <tbody>
-            <!-- Пример строки расписания -->
-            <tr th:each="schedule : ${schedules}">
-                <td th:text="${schedule.dateOrDay}">Понедельник</td>
-                <td th:text="${schedule.time}">08:00 - 09:30</td>
-                <td>
-                    <a th:href="@{/course/{id}(id=${schedule.course.courseId})}" th:text="${schedule.course.name}">Математика</a>
-                </td>
-                <td th:text="${schedule.course.teacher.personalInfo.lastName}">Иванов И.И.</td>
-                <td th:text="${schedule.classRoom}">101</td>
-                <td th:if="${isAdminOrTeacher}">
-                    <a style="button" th:href="@{/schedule/edit/{id}(id=${schedule.scheduleID})}">Изменить</a>
-                    <a th:href="@{/schedule/delete/{id}(id=${schedule.scheduleID})}">Удалить</a>
-                </td>
-            </tr>
-            </tbody>
-            <div th:if="${isAdminOrTeacher}">
-                <a href="/schedule/add">Добавить Запись Расписания</a>
+        <h1>Добавить Запись Расписания</h1>
+        <form th:action="${scheduleDTO.scheduleID != null ? '/schedule/edit' : '/schedule/add'}"
+              th:object="${scheduleDTO}" method="post">
+            <input type="hidden" th:field="*{scheduleID}"/>
+            <div class="form-group">
+                <label for="dateOrDay">Дата</label>
+                <input type="date" class="form-control" id="dateOrDay" name="dateOrDay" required>
             </div>
-        </table>
+            <div class="form-group">
+                <label for="time">Время</label>
+                <input type="text" class="form-control" id="time" name="time" required>
+            </div>
+            <div class="form-group">
+                <label for="courseName">Название Курса</label>
+                <input type="text" class="form-control" id="courseName" name="course.name" required>
+            </div>
+            <div class="form-group">
+                <label for="teacher">Имя Преподавателя</label>
+                <select class="form-control" id="teacher" name="course.teacherId">
+                    <option th:each="teacher : ${teachers}"
+                            th:value="${teacher.userID}"
+                            th:text="${teacher.personalInfo.lastName}">Имя учителя
+                    </option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="classRoom">Аудитория</label>
+                <input type="text" class="form-control" id="classRoom" name="classRoom" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+        </form>
     </div>
 </main>
 

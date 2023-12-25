@@ -5,8 +5,10 @@ import com.jj.eschool.dto.GradesDTO;
 import com.jj.eschool.dto.StudentDTO;
 import com.jj.eschool.entity.enums.Grade;
 import com.jj.eschool.entity.enums.UserRole;
+import com.jj.eschool.mapper.GradesMapper;
 import com.jj.eschool.repository.GradesRepository;
 import lombok.RequiredArgsConstructor;
+import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -18,17 +20,15 @@ public class GradeService {
 
     private final GradesRepository gradesRepository;
 
-    public List<GradesDTO> getGradesByRoleAndUserId(UserRole role, long userId) {
+    private final GradesMapper gradesMapper = Mappers.getMapper(GradesMapper.class);
 
-        if (role == UserRole.TEACHER) {
+    public List<GradesDTO> getAll() {
+        var grades = gradesRepository.findAll();
+        return gradesMapper.mapGrades(grades);
+    }
 
-            return List.of(new GradesDTO(
-                    new StudentDTO(1L, "student name", "5A"),
-                    new CourseDTO(2L, "CourseName", "Description", "teacherName"),
-                    Grade.FIFE.getValue(), LocalDate.now()
-            ));
-        }
-
-        return null;
+    public List<GradesDTO> getGradesByUserName(String username) {
+        var grades = gradesRepository.findGradesByStudentUsername(username);
+        return gradesMapper.mapGrades(grades);
     }
 }

@@ -1,10 +1,8 @@
 package com.jj.eschool.dto;
 
-public record CourseDTO(
+public record AttendanceCourseDTO(
         Long courseId,
         String name,
         String description,
-        UserDTO teacher,
-
-        Long teacherId
+        String teacherName
 ) {}

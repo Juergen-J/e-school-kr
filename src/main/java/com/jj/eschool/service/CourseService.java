@@ -16,7 +16,7 @@ public class CourseService {
     private final CourseRepository courseRepository;
 
     public CourseDTO findById(Long id) {
-
-        return null;
+        var course = courseRepository.findById(id).get();
+        return courseMapper.mapCourse(course);
     }
 }
