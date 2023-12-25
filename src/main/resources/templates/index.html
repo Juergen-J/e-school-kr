@@ -21,9 +21,6 @@
                     <a class="nav-link" href="index.html">Главная <span class="sr-only">(текущая)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="login">Вход</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="schedule">Расписание</a>
                 </li>
                 <li class="nav-item">
@@ -34,6 +31,17 @@
                 </li>
                 <li class="nav-item ">
                     <a class="nav-link" href="grades">Успеваемость</a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" href="attendance">Посещаемость</a>
+                </li>
+                <li th:if="${!authenticated}" class="nav-item">
+                    <a class="nav-link" href="/login">Вход</a>
+                </li>
+                <li th:if="${authenticated}" class="nav-item">
+                    <form th:action="@{/logout}" method="post">
+                        <button type="submit" class="nav-link btn btn-link">Выход</button>
+                    </form>
                 </li>
             </ul>
         </div>
